@@ -1,0 +1,104 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+    var pantalla = document.querySelector('canvas');
+    var pincel = pantalla.getContext('2d');
+
+    pincel.fillStyle = 'grey';
+    pincel.fillRect(0, 0, 600, 400);
+
+
+function dibujarCuadrado(x,y,color){//CORDENADA ORIZONTAL   
+pincel.fillStyle =color;
+pincel.fillRect(x,y,50,50);
+pincel.fillRect(x,y,50,50);
+pincel.fillRect(x,y,50,50);//voy remplazando la coordenada de x
+pincel.strokeStyle ="black";
+pincel.strokeRect(x,y,50,50);
+} 
+
+
+dibujarCuadrado(0,0,"red");
+dibujarCuadrado(50,0,"green");
+dibujarCuadrado(100,0,"blue");
+
+var cuadrado = 50;
+function SelectColor(eventos){
+
+        var x = eventos.pageX -pantalla.offsetLeft;
+        var y = eventos.pageY - pantalla.offsetTop;
+
+
+            if( (x < 0 + cuadrado)&&
+            (x > 0 - cuadrado)&&
+            (y < 0 + cuadrado)&&
+            (y > 0 - cuadrado)){
+
+             return pintadita= "red";
+
+            }
+
+     if((x < 50 + cuadrado)&&
+            (x > 50 - cuadrado)&&
+            (y < 50 + cuadrado)&&
+            (y > 50 - cuadrado)){
+
+      return pintadita="green";
+
+        }
+
+          if(!( (x < 0 + cuadrado)&&
+            (x > 0 - cuadrado)&&
+            (y < 0+ cuadrado)&&
+            (y > 0 - cuadrado)) ||((x < 0 + cuadrado)&&
+            (x > 0 - cuadrado)&&
+            (y < 50 + cuadrado)&&
+            (y > 50 - cuadrado))){
+          return  pintadita="blue";
+
+
+        }
+
+
+}
+ pantalla.onclick = SelectColor;
+
+    var puedoDibujar = false;
+
+    function dibujarCirculo(evento) {
+
+        if(puedoDibujar) {
+            var x = evento.pageX - pantalla.offsetLeft;
+            var y = evento.pageY - pantalla.offsetTop;
+
+
+pantalla.onclick = SelectColor;
+
+            pincel.fillStyle = pintadita;
+
+            pincel.beginPath();
+            pincel.arc(x, y, 5, 0, 2 * 3.14);
+            pincel.fill();
+        }
+
+    }
+
+    pantalla.onmousemove = dibujarCirculo;
+
+    function habilitarDibujar() {
+
+        puedoDibujar = true;
+    }
+
+    function deshabilitarDibujar() {
+
+        puedoDibujar = false;
+    }
+
+    pantalla.onmousedown = habilitarDibujar;
+
+    pantalla.onmouseup = deshabilitarDibujar;
+
+
+
+</script>
